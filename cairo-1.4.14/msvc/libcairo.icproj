@@ -5,7 +5,7 @@
 	Name="libcairo"
 	ProjectGUID="{9B815018-6B2D-4FD7-A2D2-63AE5D35E5D1}"
 	VCNestedProjectGUID="{B57CB2B2-529E-483A-BDE6-02708BF78B33}"
-	VCNestedProjectCRC32="1394770335"
+	VCNestedProjectCRC32="2849345769"
 	VCNestedProjectFileName="libcairo.vcproj"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -167,7 +167,8 @@
 			<Tool 
 				Name="PreLinkEventTool"/>
 			<Tool 
-				Name="PostBuildEventTool"/>
+				Name="PostBuildEventTool"
+				CommandLine="tclsh85 Install_Files.tcl &quot;$(InputDir)&quot; &quot;$(TargetPath)&quot;"/>
 			<Tool 
 				Name="CustomTool"/>
 			<Tool 
@@ -220,7 +221,8 @@
 			<Tool 
 				Name="PreLinkEventTool"/>
 			<Tool 
-				Name="PostBuildEventTool"/>
+				Name="PostBuildEventTool"
+				CommandLine="tclsh85 Install_Files.tcl &quot;$(InputDir)&quot; &quot;$(TargetPath)&quot;"/>
 			<Tool 
 				Name="CustomTool"/>
 			<Tool 
