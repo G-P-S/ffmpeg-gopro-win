@@ -5,7 +5,7 @@
 	Name="libcairo"
 	ProjectGUID="{9B815018-6B2D-4FD7-A2D2-63AE5D35E5D1}"
 	VCNestedProjectGUID="{B57CB2B2-529E-483A-BDE6-02708BF78B33}"
-	VCNestedProjectCRC32="4167329405"
+	VCNestedProjectCRC32="1394770335"
 	VCNestedProjectFileName="libcairo.vcproj"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -27,7 +27,7 @@
 			<Tool 
 				Name="CppCmplrTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\pixman\src;..\src;&quot;..\..\zlib123-dll\include&quot;;&quot;..\..\libpng-1.2.16-dll\include&quot;"
+				AdditionalIncludeDirectories="..\pixman\src;..\src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBCAIRO_EXPORTS"
 				MinimalRebuild="1"
 				BasicRuntimeChecks="3"
@@ -38,7 +38,7 @@
 				DebugInformationFormat="4"/>
 			<Tool 
 				Name="LinkerTool"
-				OutputFile="$(OutDir)/libcairo.dll"
+				OutputFile="$(OutDir)/libcairo14.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\zlib123-dll\lib&quot;;&quot;..\..\libpng-1.2.16-dll\lib&quot;"
 				GenerateDebugInformation="1"
@@ -125,30 +125,34 @@
 				OutputDirectory="Release"
 				IntermediateDirectory="Release"
 				ConfigurationType="2"
+				UseOfMFC="0"
 				CharacterSet="2"
 				InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"/>
 			<Tool 
 				Name="CppCmplrTool"
 				Optimization="1000"
-				AdditionalIncludeDirectories="..\pixman\src;..\src;&quot;..\..\zlib123-dll\include&quot;;&quot;..\..\libpng-1.2.16-dll\include&quot;"
+				AdditionalIncludeDirectories="..\pixman\src;..\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBCAIRO_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="1"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="3"
+				AdditionalOptions=" /QxW /Qunroll /Qvec_report1"/>
 			<Tool 
 				Name="LinkerTool"
-				OutputFile="$(OutDir)/libcairo.dll"
+				OutputFile="$(OutDir)/libcairo14.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
+				AdditionalDependencies=""
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="0"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/libcairo.lib"
+				ImportLibrary="$(OutDir)/libcairo14.lib"
 				TargetMachine="1"
-				AdditionalOptions="/nodefaultlib:libmmd"
+				AdditionalOptions=""
 				DelayImpLib=""/>
 			<Tool 
 				Name="LibrarianTool"/>
@@ -181,23 +185,24 @@
 			<Tool 
 				Name="CppCmplrTool"
 				Optimization="1000"
-				AdditionalIncludeDirectories="..\pixman\src;..\src;&quot;..\..\zlib123-dll\include&quot;;&quot;..\..\libpng-1.2.16-dll\include&quot;"
+				AdditionalIncludeDirectories="..\pixman\src;..\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBCAIRO_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="1"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="3"
+				AdditionalOptions=" /QxW /Qunroll /Qvec_report1"/>
 			<Tool 
 				Name="LinkerTool"
-				OutputFile="$(OutDir)/libcairo.dll"
+				OutputFile="$(OutDir)/libcairo14-64.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="0"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/libcairo.lib"
+				ImportLibrary="$(OutDir)/libcairo14-64.lib"
 				TargetMachine="17"
 				AdditionalOptions=""
 				DelayImpLib=""/>
@@ -341,54 +346,6 @@
 			RelativePath="..\libpng\pngwtran.c"/>
 		<File 
 			RelativePath="..\libpng\pngwutil.c"/>
-		<File 
-			RelativePath="..\zlib\adler32.c"/>
-		<File 
-			RelativePath="..\zlib\compress.c"/>
-		<File 
-			RelativePath="..\zlib\crc32.c"/>
-		<File 
-			RelativePath="..\zlib\crc32.h"/>
-		<File 
-			RelativePath="..\zlib\deflate.c"/>
-		<File 
-			RelativePath="..\zlib\deflate.h"/>
-		<File 
-			RelativePath="..\zlib\example.c"/>
-		<File 
-			RelativePath="..\zlib\gzio.c"/>
-		<File 
-			RelativePath="..\zlib\infback.c"/>
-		<File 
-			RelativePath="..\zlib\inffast.c"/>
-		<File 
-			RelativePath="..\zlib\inffast.h"/>
-		<File 
-			RelativePath="..\zlib\inffixed.h"/>
-		<File 
-			RelativePath="..\zlib\inflate.c"/>
-		<File 
-			RelativePath="..\zlib\inflate.h"/>
-		<File 
-			RelativePath="..\zlib\inftrees.c"/>
-		<File 
-			RelativePath="..\zlib\inftrees.h"/>
-		<File 
-			RelativePath="..\zlib\trees.c"/>
-		<File 
-			RelativePath="..\zlib\trees.h"/>
-		<File 
-			RelativePath="..\zlib\uncompr.c"/>
-		<File 
-			RelativePath="..\zlib\zconf.h"/>
-		<File 
-			RelativePath="..\zlib\zconf.in.h"/>
-		<File 
-			RelativePath="..\zlib\zlib.h"/>
-		<File 
-			RelativePath="..\zlib\zutil.c"/>
-		<File 
-			RelativePath="..\zlib\zutil.h"/>
 		<File 
 			RelativePath="..\src\cairo-lib.c"/>
 		<File 
@@ -565,6 +522,54 @@
 			RelativePath="..\src\cairo-win32-surface.c"/>
 		<File 
 			RelativePath="..\src\cairo.c"/>
+		<File 
+			RelativePath="..\zlib\adler32.c"/>
+		<File 
+			RelativePath="..\zlib\compress.c"/>
+		<File 
+			RelativePath="..\zlib\crc32.c"/>
+		<File 
+			RelativePath="..\zlib\crc32.h"/>
+		<File 
+			RelativePath="..\zlib\deflate.c"/>
+		<File 
+			RelativePath="..\zlib\deflate.h"/>
+		<File 
+			RelativePath="..\zlib\example.c"/>
+		<File 
+			RelativePath="..\zlib\gzio.c"/>
+		<File 
+			RelativePath="..\zlib\infback.c"/>
+		<File 
+			RelativePath="..\zlib\inffast.c"/>
+		<File 
+			RelativePath="..\zlib\inffast.h"/>
+		<File 
+			RelativePath="..\zlib\inffixed.h"/>
+		<File 
+			RelativePath="..\zlib\inflate.c"/>
+		<File 
+			RelativePath="..\zlib\inflate.h"/>
+		<File 
+			RelativePath="..\zlib\inftrees.c"/>
+		<File 
+			RelativePath="..\zlib\inftrees.h"/>
+		<File 
+			RelativePath="..\zlib\trees.c"/>
+		<File 
+			RelativePath="..\zlib\trees.h"/>
+		<File 
+			RelativePath="..\zlib\uncompr.c"/>
+		<File 
+			RelativePath="..\zlib\zconf.h"/>
+		<File 
+			RelativePath="..\zlib\zconf.in.h"/>
+		<File 
+			RelativePath="..\zlib\zlib.h"/>
+		<File 
+			RelativePath="..\zlib\zutil.c"/>
+		<File 
+			RelativePath="..\zlib\zutil.h"/>
 	</Files>
 </VisualStudioProject>
 
