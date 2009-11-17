@@ -5,7 +5,7 @@
 	Name="libcairo"
 	ProjectGUID="{9B815018-6B2D-4FD7-A2D2-63AE5D35E5D1}"
 	VCNestedProjectGUID="{B57CB2B2-529E-483A-BDE6-02708BF78B33}"
-	VCNestedProjectCRC32="2849345769"
+	VCNestedProjectCRC32="1834370060"
 	VCNestedProjectFileName="libcairo.vcproj"
 	Keyword="Win32Proj">
 	<Platforms>
@@ -133,7 +133,7 @@
 				Optimization="1000"
 				AdditionalIncludeDirectories="..\pixman\src;..\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBCAIRO_EXPORTS"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="1"
@@ -188,7 +188,7 @@
 				Optimization="1000"
 				AdditionalIncludeDirectories="..\pixman\src;..\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBCAIRO_EXPORTS"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="1"
