@@ -11,11 +11,15 @@
 #endif
 
 #ifndef cairo_public
+#if defined _MSC_VER
 	#ifdef LIBCAIRO_EXPORTS
 		#define cairo_public __declspec(dllexport)
 	#else
 		#define cairo_public __declspec(dllimport)
 	#endif
+#else
+#define cairo_public
+#endif
 #endif
 
 #define CAIRO_VERSION_MAJOR 1
