@@ -3,7 +3,7 @@
 		b. Copy fstab.sample and remove Perl include line and .sample extension
 		c. Once path is set gcc command will work
 	2. Run minsys.bat from C:\MinGW\msys\1.0 to start MinGW32 Shell
-		a. Type cd 'c:/contribwin/ffmpeg/ffmpeg-1.2.3 2013-08-27'
+		a. Type cd c:/contribwin/ffmpeg/ffmpeg-1.2.3-2013-08-27
 		b. Type configure --disable-network --disable-debug --disable-yasm --enable-shared
 			i. --disable-network avoids dependency on winsocket
 			ii. --disable-debug for lean libraries
