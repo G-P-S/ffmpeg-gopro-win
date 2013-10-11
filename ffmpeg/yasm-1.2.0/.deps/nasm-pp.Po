@@ -1,0 +1,68 @@
+nasm-pp.o: modules/preprocs/nasm/nasm-pp.c util.h config.h \
+ c:\mingw\include\stdio.h c:\mingw\include\_mingw.h \
+ c:\mingw\include\sdkddkver.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h \
+ c:\mingw\include\sys\types.h c:\mingw\include\stdlib.h \
+ c:\mingw\include\string.h c:\mingw\include\assert.h \
+ c:\mingw\include\strings.h libyasm-stdint.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h \
+ c:\mingw\include\stdint.h libyasm/coretype.h c:\mingw\include\libintl.h \
+ c:\mingw\include\locale.h libyasm/compat-queue.h libyasm/intnum.h \
+ libyasm/expr.h libyasm/file.h c:\mingw\include\ctype.h \
+ c:\mingw\include\limits.h modules/preprocs/nasm/nasm.h \
+ modules/preprocs/nasm/nasmlib.h modules/preprocs/nasm/nasm-pp.h
+
+util.h:
+
+config.h:
+
+c:\mingw\include\stdio.h:
+
+c:\mingw\include\_mingw.h:
+
+c:\mingw\include\sdkddkver.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h:
+
+c:\mingw\include\sys\types.h:
+
+c:\mingw\include\stdlib.h:
+
+c:\mingw\include\string.h:
+
+c:\mingw\include\assert.h:
+
+c:\mingw\include\strings.h:
+
+libyasm-stdint.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h:
+
+c:\mingw\include\stdint.h:
+
+libyasm/coretype.h:
+
+c:\mingw\include\libintl.h:
+
+c:\mingw\include\locale.h:
+
+libyasm/compat-queue.h:
+
+libyasm/intnum.h:
+
+libyasm/expr.h:
+
+libyasm/file.h:
+
+c:\mingw\include\ctype.h:
+
+c:\mingw\include\limits.h:
+
+modules/preprocs/nasm/nasm.h:
+
+modules/preprocs/nasm/nasmlib.h:
+
+modules/preprocs/nasm/nasm-pp.h:

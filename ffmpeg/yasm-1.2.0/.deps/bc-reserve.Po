@@ -1,0 +1,63 @@
+bc-reserve.o: libyasm/bc-reserve.c util.h config.h \
+ c:\mingw\include\stdio.h c:\mingw\include\_mingw.h \
+ c:\mingw\include\sdkddkver.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h \
+ c:\mingw\include\sys\types.h c:\mingw\include\stdlib.h \
+ c:\mingw\include\string.h c:\mingw\include\assert.h \
+ c:\mingw\include\strings.h libyasm-stdint.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h \
+ c:\mingw\include\stdint.h libyasm/coretype.h c:\mingw\include\libintl.h \
+ c:\mingw\include\locale.h libyasm/compat-queue.h libyasm/coretype.h \
+ libyasm/errwarn.h libyasm/intnum.h libyasm/expr.h libyasm/value.h \
+ libyasm/bytecode.h
+
+util.h:
+
+config.h:
+
+c:\mingw\include\stdio.h:
+
+c:\mingw\include\_mingw.h:
+
+c:\mingw\include\sdkddkver.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h:
+
+c:\mingw\include\sys\types.h:
+
+c:\mingw\include\stdlib.h:
+
+c:\mingw\include\string.h:
+
+c:\mingw\include\assert.h:
+
+c:\mingw\include\strings.h:
+
+libyasm-stdint.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h:
+
+c:\mingw\include\stdint.h:
+
+libyasm/coretype.h:
+
+c:\mingw\include\libintl.h:
+
+c:\mingw\include\locale.h:
+
+libyasm/compat-queue.h:
+
+libyasm/coretype.h:
+
+libyasm/errwarn.h:
+
+libyasm/intnum.h:
+
+libyasm/expr.h:
+
+libyasm/value.h:
+
+libyasm/bytecode.h:

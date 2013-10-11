@@ -1,0 +1,80 @@
+symrec.o: libyasm/symrec.c util.h config.h c:\mingw\include\stdio.h \
+ c:\mingw\include\_mingw.h c:\mingw\include\sdkddkver.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h \
+ c:\mingw\include\sys\types.h c:\mingw\include\stdlib.h \
+ c:\mingw\include\string.h c:\mingw\include\assert.h \
+ c:\mingw\include\strings.h libyasm-stdint.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h \
+ c:\mingw\include\stdint.h libyasm/coretype.h c:\mingw\include\libintl.h \
+ c:\mingw\include\locale.h libyasm/compat-queue.h \
+ c:\mingw\include\limits.h c:\mingw\include\ctype.h libyasm/coretype.h \
+ libyasm/valparam.h libyasm/hamt.h libyasm/assocdat.h libyasm/errwarn.h \
+ libyasm/intnum.h libyasm/floatnum.h libyasm/expr.h libyasm/symrec.h \
+ libyasm/bytecode.h libyasm/section.h libyasm/objfmt.h
+
+util.h:
+
+config.h:
+
+c:\mingw\include\stdio.h:
+
+c:\mingw\include\_mingw.h:
+
+c:\mingw\include\sdkddkver.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h:
+
+c:\mingw\include\sys\types.h:
+
+c:\mingw\include\stdlib.h:
+
+c:\mingw\include\string.h:
+
+c:\mingw\include\assert.h:
+
+c:\mingw\include\strings.h:
+
+libyasm-stdint.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h:
+
+c:\mingw\include\stdint.h:
+
+libyasm/coretype.h:
+
+c:\mingw\include\libintl.h:
+
+c:\mingw\include\locale.h:
+
+libyasm/compat-queue.h:
+
+c:\mingw\include\limits.h:
+
+c:\mingw\include\ctype.h:
+
+libyasm/coretype.h:
+
+libyasm/valparam.h:
+
+libyasm/hamt.h:
+
+libyasm/assocdat.h:
+
+libyasm/errwarn.h:
+
+libyasm/intnum.h:
+
+libyasm/floatnum.h:
+
+libyasm/expr.h:
+
+libyasm/symrec.h:
+
+libyasm/bytecode.h:
+
+libyasm/section.h:
+
+libyasm/objfmt.h:
