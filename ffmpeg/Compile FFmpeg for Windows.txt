@@ -1,0 +1,52 @@
+	1. Install MinGW from http://sourceforge.net/projects/mingw/files/
+		a. Must make fstab file in c:\MinGW\msys\1.0\etc to set environment path
+		b. Copy fstab.sample and remove Perl include line and .sample extension
+		c. Once path is set gcc command will work
+		d. Run msys.bat from C:\MinGW\msys\1.0 to start MinGW32 Shell
+		e. To Paste text to shell
+			i. Right click on Title Bar
+			ii. Select Edit->Paste
+	2. YASM (Assembly Compiler)
+		a. Needed to compile FFmpeg and libx264.
+		b. Download YASM from http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
+		c. Run msys.bat
+		d. Type 'cd c:/contribwin/ffmpeg/yasm-1.2.0'
+		e. Type 'configure'
+		f. Type 'make' to start the build
+		g. Copy 'yasm.exe' to c:\MinGW\bin
+	3. FFmpeg
+		a. Run msys.bat
+		b. Type 'cd c:/contribwin/ffmpeg/ffmpeg-1.2.3'
+		c. Type 'configure --disable-static --disable-network --disable-debug --enable-shared'
+			i. LGPL 2.1 license dlls are built with these options
+			ii. --disable-static do not build static libraries
+			iii. --disable-network avoids dependency on winsocket
+			iv. --disable-debug for lean libraries
+			v. --enable-shared allows the creation of the dlls
+		d. Type 'make' to start the build
+			i. Takes approximately 10-15 minutes to build all dlls
+			ii. Built Dlls are located in there respective folders
+				1) Example: 'swscale-2.dll' is in 'c:/contribwin/ffmpeg/ffmpeg-1.2.3/libswscale' directory
+		e. FFmpeg Configure Options
+			i. Edit configure file for all options
+		f. To rebuild 
+			i. type 'make clean' to delete object files 
+			ii. type 'make' to rebuild
+	4. 3rd Party libraries (optional) Most require royalties or special rules. Not LGPL 2.1 compliant.
+		a. x264
+			i. Enable H.264 encoding via x264. Requires GPL license.
+			ii. Download x264from http://videolan.org/developers/x264.html
+			iii. Run msys.bat
+			iv. Type 'cd c:/contribwin/ffmpeg/x264-snapshot-20130108-2245'
+			v. Type 'configure'
+			vi. Type 'make'
+			vii. Copy 'libx264.a' to c:\MinGW\msys\1.0\local\lib' <- /usr/local/lib from shell
+			viii. Configure options for FFmpeg
+				1) Include files path for library
+					a) --extra-cflags="-IC:/contribwin/ffmpeg/x264-snapshot-20131008-2245" 
+				2) Library files path (.a files (unix static library))
+					a) --extra-ldflags="-L/usr/local/lib"
+				3) --enable gpl
+				4) --enable-libx264
+
+			

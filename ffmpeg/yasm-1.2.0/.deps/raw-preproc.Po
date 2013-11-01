@@ -1,0 +1,99 @@
+raw-preproc.o: modules/preprocs/raw/raw-preproc.c util.h config.h \
+ c:\mingw\include\stdio.h c:\mingw\include\_mingw.h \
+ c:\mingw\include\sdkddkver.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h \
+ c:\mingw\include\sys\types.h c:\mingw\include\stdlib.h \
+ c:\mingw\include\string.h c:\mingw\include\assert.h \
+ c:\mingw\include\strings.h libyasm-stdint.h \
+ c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h \
+ c:\mingw\include\stdint.h libyasm/coretype.h c:\mingw\include\libintl.h \
+ c:\mingw\include\locale.h libyasm/compat-queue.h libyasm.h \
+ libyasm/valparam.h libyasm/linemap.h libyasm/errwarn.h libyasm/intnum.h \
+ libyasm/floatnum.h libyasm/expr.h libyasm/value.h libyasm/symrec.h \
+ libyasm/bytecode.h libyasm/section.h libyasm/insn.h libyasm/arch.h \
+ libyasm/dbgfmt.h libyasm/objfmt.h libyasm/listfmt.h libyasm/parser.h \
+ libyasm/preproc.h libyasm/file.h libyasm/module.h libyasm/hamt.h \
+ libyasm/md5.h
+
+util.h:
+
+config.h:
+
+c:\mingw\include\stdio.h:
+
+c:\mingw\include\_mingw.h:
+
+c:\mingw\include\sdkddkver.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdarg.h:
+
+c:\mingw\include\sys\types.h:
+
+c:\mingw\include\stdlib.h:
+
+c:\mingw\include\string.h:
+
+c:\mingw\include\assert.h:
+
+c:\mingw\include\strings.h:
+
+libyasm-stdint.h:
+
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stdint.h:
+
+c:\mingw\include\stdint.h:
+
+libyasm/coretype.h:
+
+c:\mingw\include\libintl.h:
+
+c:\mingw\include\locale.h:
+
+libyasm/compat-queue.h:
+
+libyasm.h:
+
+libyasm/valparam.h:
+
+libyasm/linemap.h:
+
+libyasm/errwarn.h:
+
+libyasm/intnum.h:
+
+libyasm/floatnum.h:
+
+libyasm/expr.h:
+
+libyasm/value.h:
+
+libyasm/symrec.h:
+
+libyasm/bytecode.h:
+
+libyasm/section.h:
+
+libyasm/insn.h:
+
+libyasm/arch.h:
+
+libyasm/dbgfmt.h:
+
+libyasm/objfmt.h:
+
+libyasm/listfmt.h:
+
+libyasm/parser.h:
+
+libyasm/preproc.h:
+
+libyasm/file.h:
+
+libyasm/module.h:
+
+libyasm/hamt.h:
+
+libyasm/md5.h:
