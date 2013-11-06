@@ -1,0 +1,10 @@
+For version ffmpeg-1.2.3 and later.
+Earlier release builds did not require this setting.
+
+When building a Visual Studio project for Release:
+
+Linker setting for optimization must be set to default or FFmpeg libraries will not load at runtime.
+
+To Set:
+Project->Properties
+Linker->Optimization->References->Default
