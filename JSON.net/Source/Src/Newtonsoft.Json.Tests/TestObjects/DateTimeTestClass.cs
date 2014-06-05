@@ -23,7 +23,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-#if !PocketPC && !NET20
+#if !NET20
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,14 +32,17 @@ using System.Text;
 
 namespace Newtonsoft.Json.Tests.TestObjects
 {
-  public class DateTimeTestClass
-  {
-    public string PreField { get; set; }
-    [DefaultValue("")]
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-    public DateTime DateTimeField { get; set; }
-    public DateTimeOffset DateTimeOffsetField { get; set; }
-    public string PostField { get; set; }
-  }
+    public class DateTimeTestClass
+    {
+        public string PreField { get; set; }
+
+        [DefaultValue("")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public DateTime DateTimeField { get; set; }
+
+        public DateTimeOffset DateTimeOffsetField { get; set; }
+        public string PostField { get; set; }
+    }
 }
+
 #endif

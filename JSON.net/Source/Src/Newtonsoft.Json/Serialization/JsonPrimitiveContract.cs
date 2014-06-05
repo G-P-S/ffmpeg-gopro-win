@@ -24,21 +24,28 @@
 #endregion
 
 using System;
+using Newtonsoft.Json.Utilities;
 
 namespace Newtonsoft.Json.Serialization
 {
-  /// <summary>
-  /// Contract details for a <see cref="Type"/> used by the <see cref="JsonSerializer"/>.
-  /// </summary>
-  public class JsonPrimitiveContract : JsonContract
-  {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsonPrimitiveContract"/> class.
+    /// Contract details for a <see cref="Type"/> used by the <see cref="JsonSerializer"/>.
     /// </summary>
-    /// <param name="underlyingType">The underlying type for the contract.</param>
-    public JsonPrimitiveContract(Type underlyingType)
-      : base(underlyingType)
+    public class JsonPrimitiveContract : JsonContract
     {
+        internal PrimitiveTypeCode TypeCode { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonPrimitiveContract"/> class.
+        /// </summary>
+        /// <param name="underlyingType">The underlying type for the contract.</param>
+        public JsonPrimitiveContract(Type underlyingType)
+            : base(underlyingType)
+        {
+            ContractType = JsonContractType.Primitive;
+
+            TypeCode = ConvertUtils.GetTypeCode(underlyingType);
+            IsReadOnlyOrFixedSize = true;
+        }
     }
-  }
 }

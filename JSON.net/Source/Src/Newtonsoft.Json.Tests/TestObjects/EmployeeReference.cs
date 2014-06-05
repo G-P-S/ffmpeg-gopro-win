@@ -23,17 +23,12 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Newtonsoft.Json.Tests.TestObjects
 {
-  [JsonObject(IsReference = true)]
-  public class EmployeeReference
-  {
-    public string Name { get; set; }
-    public EmployeeReference Manager { get; set; }
-  }
+    [JsonObject(IsReference = true)]
+    public class EmployeeReference
+    {
+        public string Name { get; set; }
+        public EmployeeReference Manager { get; set; }
+    }
 }

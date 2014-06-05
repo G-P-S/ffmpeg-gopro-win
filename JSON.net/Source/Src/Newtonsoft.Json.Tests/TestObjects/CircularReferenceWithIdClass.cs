@@ -23,18 +23,14 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Newtonsoft.Json.Tests.TestObjects
 {
-  [JsonObject(Id = "MyExplicitId")]
-  public class CircularReferenceWithIdClass
-  {
-    [JsonProperty(Required = Required.AllowNull)]
-    public string Name { get; set; }
-    public CircularReferenceWithIdClass Child { get; set; }
-  }
+    [JsonObject(Id = "MyExplicitId")]
+    public class CircularReferenceWithIdClass
+    {
+        [JsonProperty(Required = Required.AllowNull)]
+        public string Name { get; set; }
+
+        public CircularReferenceWithIdClass Child { get; set; }
+    }
 }

@@ -23,19 +23,15 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 
 namespace Newtonsoft.Json.Utilities
 {
-  internal class EnumValues<T> : KeyedCollection<string, EnumValue<T>> where T : struct
-  {
-    protected override string GetKeyForItem(EnumValue<T> item)
+    internal class EnumValues<T> : KeyedCollection<string, EnumValue<T>> where T : struct
     {
-      return item.Name;
+        protected override string GetKeyForItem(EnumValue<T> item)
+        {
+            return item.Name;
+        }
     }
-  }
 }

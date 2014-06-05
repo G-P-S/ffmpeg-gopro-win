@@ -23,34 +23,32 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-#if !SILVERLIGHT && !PocketPC
+#if !(NETFX_CORE || PORTABLE || PORTABLE40)
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json.Utilities;
 
 namespace Newtonsoft.Json.Serialization
 {
-  /// <summary>
-  /// Contract details for a <see cref="Type"/> used by the <see cref="JsonSerializer"/>.
-  /// </summary>
-  public class JsonISerializableContract : JsonContract
-  {
     /// <summary>
-    /// Gets or sets the ISerializable object constructor.
+    /// Contract details for a <see cref="Type"/> used by the <see cref="JsonSerializer"/>.
     /// </summary>
-    /// <value>The ISerializable object constructor.</value>
-    public ObjectConstructor<object> ISerializableCreator { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="JsonISerializableContract"/> class.
-    /// </summary>
-    /// <param name="underlyingType">The underlying type for the contract.</param>
-    public JsonISerializableContract(Type underlyingType)
-      : base(underlyingType)
+    public class JsonISerializableContract : JsonContainerContract
     {
+        /// <summary>
+        /// Gets or sets the ISerializable object constructor.
+        /// </summary>
+        /// <value>The ISerializable object constructor.</value>
+        public ObjectConstructor<object> ISerializableCreator { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonISerializableContract"/> class.
+        /// </summary>
+        /// <param name="underlyingType">The underlying type for the contract.</param>
+        public JsonISerializableContract(Type underlyingType)
+            : base(underlyingType)
+        {
+            ContractType = JsonContractType.Serializable;
+        }
     }
-  }
 }
+
 #endif

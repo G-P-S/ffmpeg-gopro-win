@@ -23,25 +23,25 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Newtonsoft.Json
 {
-  /// <summary>
-  /// Specifies null value handling options for the <see cref="JsonSerializer"/>.
-  /// </summary>
-  public enum NullValueHandling
-  {
     /// <summary>
-    /// Include null values when serializing and deserializing objects.
+    /// Specifies null value handling options for the <see cref="JsonSerializer"/>.
     /// </summary>
-    Include = 0,
-    /// <summary>
-    /// Ignore null values when serializing and deserializing objects.
-    /// </summary>
-    Ignore = 1
-  }
+    /// <example>
+    ///   <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\SerializationTests.cs" region="ReducingSerializedJsonSizeNullValueHandlingObject" title="NullValueHandling Class" />
+    ///   <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\SerializationTests.cs" region="ReducingSerializedJsonSizeNullValueHandlingExample" title="NullValueHandling Ignore Example" />
+    /// </example>
+    public enum NullValueHandling
+    {
+        /// <summary>
+        /// Include null values when serializing and deserializing objects.
+        /// </summary>
+        Include = 0,
+
+        /// <summary>
+        /// Ignore null values when serializing and deserializing objects.
+        /// </summary>
+        Ignore = 1
+    }
 }

@@ -26,44 +26,65 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json.Tests.TestObjects;
+#if !NETFX_CORE
 using NUnit.Framework;
-using Newtonsoft.Json.Linq;
+
+#else
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using TestFixture = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.TestClassAttribute;
+using Test = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.TestMethodAttribute;
+#endif
 
 namespace Newtonsoft.Json.Tests.Serialization
 {
-  public class PopulateTests : TestFixtureBase
-  {
-    [Test]
-    public void PopulatePerson()
+    [TestFixture]
+    public class PopulateTests : TestFixtureBase
     {
-      Person p = new Person();
-
-      JsonConvert.PopulateObject(@"{""Name"":""James""}", p);
-
-      Assert.AreEqual("James", p.Name);
-    }
-
-    [Test]
-    public void PopulateStore()
-    {
-      Store s = new Store();
-      s.Color = StoreColor.Red;
-      s.product = new List<Product>
+        [Test]
+        public void PopulatePerson()
         {
-          new Product
-            {
-              ExpiryDate = new DateTime(2000, 12, 3, 0, 0, 0, DateTimeKind.Utc),
-              Name = "ProductName!",
-              Price = 9.9m
-            }
-        };
-      s.Width = 99.99d;
-      s.Mottos = new List<string> { "Can do!", "We deliver!" };
+            Person p = new Person();
 
-      string json = @"{
+            JsonConvert.PopulateObject(@"{""Name"":""James""}", p);
+
+            Assert.AreEqual("James", p.Name);
+        }
+
+        [Test]
+        public void PopulateArray()
+        {
+            IList<Person> people = new List<Person>
+            {
+                new Person { Name = "Initial" }
+            };
+
+            JsonConvert.PopulateObject(@"[{""Name"":""James""}, null]", people);
+
+            Assert.AreEqual(3, people.Count);
+            Assert.AreEqual("Initial", people[0].Name);
+            Assert.AreEqual("James", people[1].Name);
+            Assert.AreEqual(null, people[2]);
+        }
+
+        [Test]
+        public void PopulateStore()
+        {
+            Store s = new Store();
+            s.Color = StoreColor.Red;
+            s.product = new List<Product>
+            {
+                new Product
+                {
+                    ExpiryDate = new DateTime(2000, 12, 3, 0, 0, 0, DateTimeKind.Utc),
+                    Name = "ProductName!",
+                    Price = 9.9m
+                }
+            };
+            s.Width = 99.99d;
+            s.Mottos = new List<string> { "Can do!", "We deliver!" };
+
+            string json = @"{
   ""Color"": 2,
   ""Establised"": ""\/Date(1264122061000+0000)\/"",
   ""Width"": 99.99,
@@ -96,48 +117,48 @@ namespace Newtonsoft.Json.Tests.Serialization
   ]
 }";
 
-      JsonConvert.PopulateObject(json, s, new JsonSerializerSettings
+            JsonConvert.PopulateObject(json, s, new JsonSerializerSettings
+            {
+                ObjectCreationHandling = ObjectCreationHandling.Replace
+            });
+
+            Assert.AreEqual(1, s.Mottos.Count);
+            Assert.AreEqual("Fail whale", s.Mottos[0]);
+            Assert.AreEqual(1, s.product.Count);
+
+            //Assert.AreEqual("James", p.Name);
+        }
+
+        [Test]
+        public void PopulateListOfPeople()
         {
-          ObjectCreationHandling = ObjectCreationHandling.Replace
-        });
+            List<Person> p = new List<Person>();
 
-      Assert.AreEqual(1, s.Mottos.Count);
-      Assert.AreEqual("Fail whale", s.Mottos[0]);
-      Assert.AreEqual(1, s.product.Count);
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Populate(new StringReader(@"[{""Name"":""James""},{""Name"":""Jim""}]"), p);
 
-      //Assert.AreEqual("James", p.Name);
+            Assert.AreEqual(2, p.Count);
+            Assert.AreEqual("James", p[0].Name);
+            Assert.AreEqual("Jim", p[1].Name);
+        }
+
+        [Test]
+        public void PopulateDictionary()
+        {
+            Dictionary<string, string> p = new Dictionary<string, string>();
+
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Populate(new StringReader(@"{""Name"":""James""}"), p);
+
+            Assert.AreEqual(1, p.Count);
+            Assert.AreEqual("James", p["Name"]);
+        }
+
+        [Test]
+        public void PopulateWithBadJson()
+        {
+            ExceptionAssert.Throws<JsonSerializationException>("Unexpected initial token 'Integer' when populating object. Expected JSON object or array. Path '', line 1, position 1.",
+                () => { JsonConvert.PopulateObject("1", new Person()); });
+        }
     }
-
-    [Test]
-    public void PopulateListOfPeople()
-    {
-      List<Person> p = new List<Person>();
-
-      JsonSerializer serializer = new JsonSerializer();
-      serializer.Populate(new StringReader(@"[{""Name"":""James""},{""Name"":""Jim""}]"), p);
-
-      Assert.AreEqual(2, p.Count);
-      Assert.AreEqual("James", p[0].Name);
-      Assert.AreEqual("Jim", p[1].Name);
-    }
-
-    [Test]
-    public void PopulateDictionary()
-    {
-      Dictionary<string, string> p = new Dictionary<string, string>();
-
-      JsonSerializer serializer = new JsonSerializer();
-      serializer.Populate(new StringReader(@"{""Name"":""James""}"), p);
-
-      Assert.AreEqual(1, p.Count);
-      Assert.AreEqual("James", p["Name"]);
-    }
-
-    [Test]
-    [ExpectedException(typeof(JsonSerializationException), ExpectedMessage = "Unexpected initial token 'Integer' when populating object. Expected JSON object or array.")]
-    public void PopulateWithBadJson()
-    {
-      JsonConvert.PopulateObject("1", new Person());
-    }
-  }
 }

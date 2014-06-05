@@ -31,27 +31,39 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Tests.TestObjects;
 using Newtonsoft.Json.Utilities;
+#if !NETFX_CORE
 using NUnit.Framework;
+#else
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using TestFixture = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.TestClassAttribute;
+using Test = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.TestMethodAttribute;
+#endif
 using Newtonsoft.Json.Schema;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Text;
-using Extensions=Newtonsoft.Json.Schema.Extensions;
+using Extensions = Newtonsoft.Json.Schema.Extensions;
+#if NET20
+using Newtonsoft.Json.Utilities.LinqBridge;
+#else
+using System.Linq;
+
+#endif
 
 namespace Newtonsoft.Json.Tests.Schema
 {
-  public class JsonSchemaGeneratorTests : TestFixtureBase
-  {
-    [Test]
-    public void Generate_GenericDictionary()
+    [TestFixture]
+    public class JsonSchemaGeneratorTests : TestFixtureBase
     {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      JsonSchema schema = generator.Generate(typeof (Dictionary<string, List<string>>));
+        [Test]
+        public void Generate_GenericDictionary()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            JsonSchema schema = generator.Generate(typeof(Dictionary<string, List<string>>));
 
-      string json = schema.ToString();
+            string json = schema.ToString();
 
-      Assert.AreEqual(@"{
+            Assert.AreEqual(@"{
   ""type"": ""object"",
   ""additionalProperties"": {
     ""type"": [
@@ -67,28 +79,28 @@ namespace Newtonsoft.Json.Tests.Schema
   }
 }", json);
 
-      Dictionary<string, List<string>> value = new Dictionary<string, List<string>>
-                                                 {
-                                                   {"HasValue", new List<string>() { "first", "second", null }},
-                                                   {"NoValue", null}
-                                                 };
+            Dictionary<string, List<string>> value = new Dictionary<string, List<string>>
+            {
+                { "HasValue", new List<string>() { "first", "second", null } },
+                { "NoValue", null }
+            };
 
-      string valueJson = JsonConvert.SerializeObject(value, Formatting.Indented);
-      JObject o = JObject.Parse(valueJson);
+            string valueJson = JsonConvert.SerializeObject(value, Formatting.Indented);
+            JObject o = JObject.Parse(valueJson);
 
-      Assert.IsTrue(o.IsValid(schema));
-    }
+            Assert.IsTrue(o.IsValid(schema));
+        }
 
-#if !PocketPC
-    [Test]
-    public void Generate_DefaultValueAttributeTestClass()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      JsonSchema schema = generator.Generate(typeof(DefaultValueAttributeTestClass));
+#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+        [Test]
+        public void Generate_DefaultValueAttributeTestClass()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            JsonSchema schema = generator.Generate(typeof(DefaultValueAttributeTestClass));
 
-      string json = schema.ToString();
+            string json = schema.ToString();
 
-      Assert.AreEqual(@"{
+            Assert.AreEqual(@"{
   ""description"": ""DefaultValueAttributeTestClass description!"",
   ""type"": ""object"",
   ""additionalProperties"": false,
@@ -108,18 +120,18 @@ namespace Newtonsoft.Json.Tests.Schema
     }
   }
 }", json);
-    }
+        }
 #endif
 
-    [Test]
-    public void Generate_Person()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      JsonSchema schema = generator.Generate(typeof(Person));
+        [Test]
+        public void Generate_Person()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            JsonSchema schema = generator.Generate(typeof(Person));
 
-      string json = schema.ToString();
+            string json = schema.ToString();
 
-      Assert.AreEqual(@"{
+            Assert.AreEqual(@"{
   ""id"": ""Person"",
   ""title"": ""Title!"",
   ""description"": ""JsonObjectAttribute description!"",
@@ -142,17 +154,17 @@ namespace Newtonsoft.Json.Tests.Schema
     }
   }
 }", json);
-    }
+        }
 
-    [Test]
-    public void Generate_UserNullable()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      JsonSchema schema = generator.Generate(typeof(UserNullable));
+        [Test]
+        public void Generate_UserNullable()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            JsonSchema schema = generator.Generate(typeof(UserNullable));
 
-      string json = schema.ToString();
+            string json = schema.ToString();
 
-      Assert.AreEqual(@"{
+            Assert.AreEqual(@"{
   ""type"": ""object"",
   ""properties"": {
     ""Id"": {
@@ -200,187 +212,175 @@ namespace Newtonsoft.Json.Tests.Schema
     }
   }
 }", json);
-    }
+        }
 
-    [Test]
-    public void Generate_RequiredMembersClass()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      JsonSchema schema = generator.Generate(typeof(RequiredMembersClass));
+        [Test]
+        public void Generate_RequiredMembersClass()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            JsonSchema schema = generator.Generate(typeof(RequiredMembersClass));
 
-      Assert.AreEqual(JsonSchemaType.String, schema.Properties["FirstName"].Type);
-      Assert.AreEqual(JsonSchemaType.String | JsonSchemaType.Null, schema.Properties["MiddleName"].Type);
-      Assert.AreEqual(JsonSchemaType.String | JsonSchemaType.Null, schema.Properties["LastName"].Type);
-      Assert.AreEqual(JsonSchemaType.String, schema.Properties["BirthDate"].Type);
-    }
+            Assert.AreEqual(JsonSchemaType.String, schema.Properties["FirstName"].Type);
+            Assert.AreEqual(JsonSchemaType.String | JsonSchemaType.Null, schema.Properties["MiddleName"].Type);
+            Assert.AreEqual(JsonSchemaType.String | JsonSchemaType.Null, schema.Properties["LastName"].Type);
+            Assert.AreEqual(JsonSchemaType.String, schema.Properties["BirthDate"].Type);
+        }
 
-    [Test]
-    public void Generate_Store()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      JsonSchema schema = generator.Generate(typeof(Store));
+        [Test]
+        public void Generate_Store()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            JsonSchema schema = generator.Generate(typeof(Store));
 
-      Assert.AreEqual(11, schema.Properties.Count);
+            Assert.AreEqual(11, schema.Properties.Count);
 
-      JsonSchema productArraySchema = schema.Properties["product"];
-      JsonSchema productSchema = productArraySchema.Items[0];
+            JsonSchema productArraySchema = schema.Properties["product"];
+            JsonSchema productSchema = productArraySchema.Items[0];
 
-      Assert.AreEqual(4, productSchema.Properties.Count);
-    }
+            Assert.AreEqual(4, productSchema.Properties.Count);
+        }
 
-    [Test]
-    public void MissingSchemaIdHandlingTest()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
+        [Test]
+        public void MissingSchemaIdHandlingTest()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
 
-      JsonSchema schema = generator.Generate(typeof(Store));
-      Assert.AreEqual(null, schema.Id);
+            JsonSchema schema = generator.Generate(typeof(Store));
+            Assert.AreEqual(null, schema.Id);
 
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
-      schema = generator.Generate(typeof (Store));
-      Assert.AreEqual(typeof(Store).FullName, schema.Id);
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            schema = generator.Generate(typeof(Store));
+            Assert.AreEqual(typeof(Store).FullName, schema.Id);
 
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseAssemblyQualifiedName;
-      schema = generator.Generate(typeof(Store));
-      Assert.AreEqual(typeof(Store).AssemblyQualifiedName, schema.Id);
-    }
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseAssemblyQualifiedName;
+            schema = generator.Generate(typeof(Store));
+            Assert.AreEqual(typeof(Store).AssemblyQualifiedName, schema.Id);
+        }
 
-    [Test]
-    public void Generate_NumberFormatInfo()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      JsonSchema schema = generator.Generate(typeof(NumberFormatInfo));
+        [Test]
+        public void CircularReferenceError()
+        {
+            ExceptionAssert.Throws<Exception>(@"Unresolved circular reference for type 'Newtonsoft.Json.Tests.TestObjects.CircularReferenceClass'. Explicitly define an Id for the type using a JsonObject/JsonArray attribute or automatically generate a type Id using the UndefinedSchemaIdHandling property.",
+                () =>
+                {
+                    JsonSchemaGenerator generator = new JsonSchemaGenerator();
+                    generator.Generate(typeof(CircularReferenceClass));
+                });
+        }
 
-      string json = schema.ToString();
+        [Test]
+        public void CircularReferenceWithTypeNameId()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
 
-      Console.WriteLine(json);
+            JsonSchema schema = generator.Generate(typeof(CircularReferenceClass), true);
 
-      //      Assert.AreEqual(@"{
-      //  ""type"": ""object"",
-      //  ""additionalProperties"": {
-      //    ""type"": ""array"",
-      //    ""items"": {
-      //      ""type"": ""string""
-      //    }
-      //  }
-      //}", json);
-    }
+            Assert.AreEqual(JsonSchemaType.String, schema.Properties["Name"].Type);
+            Assert.AreEqual(typeof(CircularReferenceClass).FullName, schema.Id);
+            Assert.AreEqual(JsonSchemaType.Object | JsonSchemaType.Null, schema.Properties["Child"].Type);
+            Assert.AreEqual(schema, schema.Properties["Child"]);
+        }
 
-    [Test]
-    [ExpectedException(typeof(Exception), ExpectedMessage = @"Unresolved circular reference for type 'Newtonsoft.Json.Tests.TestObjects.CircularReferenceClass'. Explicitly define an Id for the type using a JsonObject/JsonArray attribute or automatically generate a type Id using the UndefinedSchemaIdHandling property.")]
-    public void CircularReferenceError()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      generator.Generate(typeof(CircularReferenceClass));
-    }
+        [Test]
+        public void CircularReferenceWithExplicitId()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
 
-    [Test]
-    public void CircularReferenceWithTypeNameId()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            JsonSchema schema = generator.Generate(typeof(CircularReferenceWithIdClass));
 
-      JsonSchema schema = generator.Generate(typeof(CircularReferenceClass), true);
+            Assert.AreEqual(JsonSchemaType.String | JsonSchemaType.Null, schema.Properties["Name"].Type);
+            Assert.AreEqual("MyExplicitId", schema.Id);
+            Assert.AreEqual(JsonSchemaType.Object | JsonSchemaType.Null, schema.Properties["Child"].Type);
+            Assert.AreEqual(schema, schema.Properties["Child"]);
+        }
 
-      Assert.AreEqual(JsonSchemaType.String, schema.Properties["Name"].Type);
-      Assert.AreEqual(typeof(CircularReferenceClass).FullName, schema.Id);
-      Assert.AreEqual(JsonSchemaType.Object | JsonSchemaType.Null, schema.Properties["Child"].Type);
-      Assert.AreEqual(schema, schema.Properties["Child"]);
-    }
+        [Test]
+        public void GenerateSchemaForType()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
 
-    [Test]
-    public void CircularReferenceWithExplicitId()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            JsonSchema schema = generator.Generate(typeof(Type));
 
-      JsonSchema schema = generator.Generate(typeof(CircularReferenceWithIdClass));
+            Assert.AreEqual(JsonSchemaType.String, schema.Type);
 
-      Assert.AreEqual(JsonSchemaType.String | JsonSchemaType.Null, schema.Properties["Name"].Type);
-      Assert.AreEqual("MyExplicitId", schema.Id);
-      Assert.AreEqual(JsonSchemaType.Object | JsonSchemaType.Null, schema.Properties["Child"].Type);
-      Assert.AreEqual(schema, schema.Properties["Child"]);
-    }
+            string json = JsonConvert.SerializeObject(typeof(Version), Formatting.Indented);
 
-    [Test]
-    public void GenerateSchemaForType()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            JValue v = new JValue(json);
+            Assert.IsTrue(v.IsValid(schema));
+        }
 
-      JsonSchema schema = generator.Generate(typeof(Type));
+#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+        [Test]
+        public void GenerateSchemaForISerializable()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
 
-      Assert.AreEqual(JsonSchemaType.String, schema.Type);
+            JsonSchema schema = generator.Generate(typeof(Exception));
 
-      string json = JsonConvert.SerializeObject(typeof(Version), Formatting.Indented);
-
-      JValue v = new JValue(json);
-      Assert.IsTrue(v.IsValid(schema));
-    }
-
-#if !SILVERLIGHT && !PocketPC
-    [Test]
-    public void GenerateSchemaForISerializable()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
-
-      JsonSchema schema = generator.Generate(typeof(Exception));
-
-      Assert.AreEqual(JsonSchemaType.Object, schema.Type);
-      Assert.AreEqual(true, schema.AllowAdditionalProperties);
-      Assert.AreEqual(null, schema.Properties);
-    }
+            Assert.AreEqual(JsonSchemaType.Object, schema.Type);
+            Assert.AreEqual(true, schema.AllowAdditionalProperties);
+            Assert.AreEqual(null, schema.Properties);
+        }
 #endif
 
-    [Test]
-    public void GenerateSchemaForDBNull()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+        [Test]
+        public void GenerateSchemaForDBNull()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
 
-      JsonSchema schema = generator.Generate(typeof(DBNull));
+            JsonSchema schema = generator.Generate(typeof(DBNull));
 
-      Assert.AreEqual(JsonSchemaType.Null, schema.Type);
-    }
+            Assert.AreEqual(JsonSchemaType.Null, schema.Type);
+        }
 
-    public class CustomDirectoryInfoMapper : DefaultContractResolver
-    {
-      public CustomDirectoryInfoMapper()
-        : base(true)
-      {
-      }
+        public class CustomDirectoryInfoMapper : DefaultContractResolver
+        {
+            public CustomDirectoryInfoMapper()
+                : base(true)
+            {
+            }
 
-      protected override JsonContract CreateContract(Type objectType)
-      {
-        if (objectType == typeof(DirectoryInfo))
-          return base.CreateObjectContract(objectType);
+            protected override JsonContract CreateContract(Type objectType)
+            {
+                if (objectType == typeof(DirectoryInfo))
+                    return base.CreateObjectContract(objectType);
 
-        return base.CreateContract(objectType);
-      }
+                return base.CreateContract(objectType);
+            }
 
-      protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
-      {
-        IList<JsonProperty> properties = base.CreateProperties(type, memberSerialization);
+            protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+            {
+                IList<JsonProperty> properties = base.CreateProperties(type, memberSerialization);
 
-        JsonPropertyCollection c = new JsonPropertyCollection(type);
-        CollectionUtils.AddRange(c, (IEnumerable)properties.Where(m => m.PropertyName != "Root"));
+                JsonPropertyCollection c = new JsonPropertyCollection(type);
+                c.AddRange(properties.Where(m => m.PropertyName != "Root"));
 
-        return c;
-      }
-    }
+                return c;
+            }
+        }
 
-    [Test]
-    public void GenerateSchemaForDirectoryInfo()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
-      generator.ContractResolver = new CustomDirectoryInfoMapper();
+        [Test]
+        public void GenerateSchemaForDirectoryInfo()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            generator.ContractResolver = new CustomDirectoryInfoMapper
+            {
+#if !(NETFX_CORE || PORTABLE)
+                IgnoreSerializableAttribute = true
+#endif
+            };
 
-      JsonSchema schema = generator.Generate(typeof(DirectoryInfo), true);
+            JsonSchema schema = generator.Generate(typeof(DirectoryInfo), true);
 
-      string json = schema.ToString();
-      
-      Assert.AreEqual(@"{
+            string json = schema.ToString();
+
+            Assert.AreEqual(@"{
   ""id"": ""System.IO.DirectoryInfo"",
   ""required"": true,
   ""type"": [
@@ -448,32 +448,43 @@ namespace Newtonsoft.Json.Tests.Schema
   }
 }", json);
 
-      DirectoryInfo temp = new DirectoryInfo(@"c:\temp");
+            DirectoryInfo temp = new DirectoryInfo(@"c:\temp");
 
-      JTokenWriter jsonWriter = new JTokenWriter();
-      JsonSerializer serializer = new JsonSerializer();
-      serializer.Converters.Add(new IsoDateTimeConverter());
-      serializer.ContractResolver = new CustomDirectoryInfoMapper();
-      serializer.Serialize(jsonWriter, temp);
+            JTokenWriter jsonWriter = new JTokenWriter();
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new IsoDateTimeConverter());
+            serializer.ContractResolver = new CustomDirectoryInfoMapper
+            {
+#if !(NETFX_CORE || PORTABLE)
+                IgnoreSerializableInterface = true
+#endif
+            };
+            serializer.Serialize(jsonWriter, temp);
 
-      List<string> errors = new List<string>();
-      jsonWriter.Token.Validate(schema, (sender, args) => errors.Add(args.Message));
+            List<string> errors = new List<string>();
+            jsonWriter.Token.Validate(schema, (sender, args) => errors.Add(args.Message));
 
-      Assert.AreEqual(0, errors.Count);
-    }
+            Assert.AreEqual(0, errors.Count);
+        }
+#endif
 
-    [Test]
-    public void GenerateSchemaCamelCase()
-    {
-      JsonSchemaGenerator generator = new JsonSchemaGenerator();
-      generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
-      generator.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        [Test]
+        public void GenerateSchemaCamelCase()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            generator.ContractResolver = new CamelCasePropertyNamesContractResolver()
+            {
+#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+                IgnoreSerializableAttribute = true
+#endif
+            };
 
-      JsonSchema schema = generator.Generate(typeof (Version), true);
+            JsonSchema schema = generator.Generate(typeof(Version), true);
 
-      string json = schema.ToString();
+            string json = schema.ToString();
 
-      Assert.AreEqual(@"{
+            Assert.AreEqual(@"{
   ""id"": ""System.Version"",
   ""type"": [
     ""object"",
@@ -507,29 +518,99 @@ namespace Newtonsoft.Json.Tests.Schema
     }
   }
 }", json);
+        }
+
+#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+        [Test]
+        public void GenerateSchemaSerializable()
+        {
+            JsonSchemaGenerator generator = new JsonSchemaGenerator();
+            generator.ContractResolver = new DefaultContractResolver
+            {
+                IgnoreSerializableAttribute = false
+            };
+            generator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+
+            JsonSchema schema = generator.Generate(typeof(Version), true);
+
+            string json = schema.ToString();
+
+            Assert.AreEqual(@"{
+  ""id"": ""System.Version"",
+  ""type"": [
+    ""object"",
+    ""null""
+  ],
+  ""additionalProperties"": false,
+  ""properties"": {
+    ""_Major"": {
+      ""required"": true,
+      ""type"": ""integer""
+    },
+    ""_Minor"": {
+      ""required"": true,
+      ""type"": ""integer""
+    },
+    ""_Build"": {
+      ""required"": true,
+      ""type"": ""integer""
+    },
+    ""_Revision"": {
+      ""required"": true,
+      ""type"": ""integer""
     }
+  }
+}", json);
 
-    public enum SortTypeFlag
-    {
-      No = 0,
-      Asc = 1,
-      Desc = -1
-    }
+            JTokenWriter jsonWriter = new JTokenWriter();
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.ContractResolver = new DefaultContractResolver
+            {
+                IgnoreSerializableAttribute = false
+            };
+            serializer.Serialize(jsonWriter, new Version(1, 2, 3, 4));
 
-    public class X
-    {
-      public SortTypeFlag x;
-    }
+            List<string> errors = new List<string>();
+            jsonWriter.Token.Validate(schema, (sender, args) => errors.Add(args.Message));
 
-    [Test]
-    public void GenerateSchemaWithNegativeEnum()
-    {
-      JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
-      JsonSchema schema = jsonSchemaGenerator.Generate(typeof(X));
+            Assert.AreEqual(0, errors.Count);
 
-      string json = schema.ToString();
+            Assert.AreEqual(@"{
+  ""_Major"": 1,
+  ""_Minor"": 2,
+  ""_Build"": 3,
+  ""_Revision"": 4
+}", jsonWriter.Token.ToString());
 
-      Assert.AreEqual(@"{
+            Version version = jsonWriter.Token.ToObject<Version>(serializer);
+            Assert.AreEqual(1, version.Major);
+            Assert.AreEqual(2, version.Minor);
+            Assert.AreEqual(3, version.Build);
+            Assert.AreEqual(4, version.Revision);
+        }
+#endif
+
+        public enum SortTypeFlag
+        {
+            No = 0,
+            Asc = 1,
+            Desc = -1
+        }
+
+        public class X
+        {
+            public SortTypeFlag x;
+        }
+
+        [Test]
+        public void GenerateSchemaWithNegativeEnum()
+        {
+            JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
+            JsonSchema schema = jsonSchemaGenerator.Generate(typeof(X));
+
+            string json = schema.ToString();
+
+            Assert.AreEqual(@"{
   ""type"": ""object"",
   ""properties"": {
     ""x"": {
@@ -539,49 +620,35 @@ namespace Newtonsoft.Json.Tests.Schema
         0,
         1,
         -1
-      ],
-      ""options"": [
-        {
-          ""value"": 0,
-          ""label"": ""No""
-        },
-        {
-          ""value"": 1,
-          ""label"": ""Asc""
-        },
-        {
-          ""value"": -1,
-          ""label"": ""Desc""
-        }
       ]
     }
   }
 }", json);
-    }
+        }
 
-    [Test]
-    public void CircularCollectionReferences()
-    {
-      Type type = typeof (Workspace);
-      JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
+        [Test]
+        public void CircularCollectionReferences()
+        {
+            Type type = typeof(Workspace);
+            JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
 
-      jsonSchemaGenerator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
-      JsonSchema jsonSchema = jsonSchemaGenerator.Generate(type);
+            jsonSchemaGenerator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            JsonSchema jsonSchema = jsonSchemaGenerator.Generate(type);
 
-      // should succeed
-      Assert.IsNotNull(jsonSchema);
-    }
+            // should succeed
+            Assert.IsNotNull(jsonSchema);
+        }
 
-    [Test]
-    public void CircularReferenceWithMixedRequires()
-    {
-      JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
+        [Test]
+        public void CircularReferenceWithMixedRequires()
+        {
+            JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
 
-      jsonSchemaGenerator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
-      JsonSchema jsonSchema = jsonSchemaGenerator.Generate(typeof(CircularReferenceClass));
-      string json = jsonSchema.ToString();
+            jsonSchemaGenerator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            JsonSchema jsonSchema = jsonSchemaGenerator.Generate(typeof(CircularReferenceClass));
+            string json = jsonSchema.ToString();
 
-      Assert.AreEqual(@"{
+            Assert.AreEqual(@"{
   ""id"": ""Newtonsoft.Json.Tests.TestObjects.CircularReferenceClass"",
   ""type"": [
     ""object"",
@@ -597,18 +664,18 @@ namespace Newtonsoft.Json.Tests.Schema
     }
   }
 }", json);
-    }
+        }
 
-    [Test]
-    public void JsonPropertyWithHandlingValues()
-    {
-      JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
+        [Test]
+        public void JsonPropertyWithHandlingValues()
+        {
+            JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
 
-      jsonSchemaGenerator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
-      JsonSchema jsonSchema = jsonSchemaGenerator.Generate(typeof(JsonPropertyWithHandlingValues));
-      string json = jsonSchema.ToString();
+            jsonSchemaGenerator.UndefinedSchemaIdHandling = UndefinedSchemaIdHandling.UseTypeName;
+            JsonSchema jsonSchema = jsonSchemaGenerator.Generate(typeof(JsonPropertyWithHandlingValues));
+            string json = jsonSchema.ToString();
 
-      Assert.AreEqual(@"{
+            Assert.AreEqual(@"{
   ""id"": ""Newtonsoft.Json.Tests.TestObjects.JsonPropertyWithHandlingValues"",
   ""required"": true,
   ""type"": [
@@ -625,6 +692,21 @@ namespace Newtonsoft.Json.Tests.Schema
     },
     ""DefaultValueHandlingIncludeProperty"": {
       ""required"": true,
+      ""type"": [
+        ""string"",
+        ""null""
+      ],
+      ""default"": ""Default!""
+    },
+    ""DefaultValueHandlingPopulateProperty"": {
+      ""required"": true,
+      ""type"": [
+        ""string"",
+        ""null""
+      ],
+      ""default"": ""Default!""
+    },
+    ""DefaultValueHandlingIgnoreAndPopulateProperty"": {
       ""type"": [
         ""string"",
         ""null""
@@ -655,70 +737,137 @@ namespace Newtonsoft.Json.Tests.Schema
     }
   }
 }", json);
+        }
+
+        [Test]
+        public void GenerateForNullableInt32()
+        {
+            JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
+
+            JsonSchema jsonSchema = jsonSchemaGenerator.Generate(typeof(NullableInt32TestClass));
+            string json = jsonSchema.ToString();
+
+            Assert.AreEqual(@"{
+  ""type"": ""object"",
+  ""properties"": {
+    ""Value"": {
+      ""required"": true,
+      ""type"": [
+        ""integer"",
+        ""null""
+      ]
     }
   }
+}", json);
+        }
 
-  public class DMDSLBase
-  {
-    public String Comment;
-  }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum SortTypeFlagAsString
+        {
+            No = 0,
+            Asc = 1,
+            Desc = -1
+        }
 
-  public class Workspace : DMDSLBase
-  {
-    public ControlFlowItemCollection Jobs = new ControlFlowItemCollection();
-  }
+        public class Y
+        {
+            public SortTypeFlagAsString y;
+        }
 
-  public class ControlFlowItemBase : DMDSLBase
-  {
-    public String Name;
-  }
+        [Test]
+        [Ignore]
+        public void GenerateSchemaWithStringEnum()
+        {
+            JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator();
+            JsonSchema schema = jsonSchemaGenerator.Generate(typeof(Y));
 
-  public class ControlFlowItem : ControlFlowItemBase//A Job
-  {
-    public TaskCollection Tasks = new TaskCollection();
-    public ContainerCollection Containers = new ContainerCollection();
-  }
+            string json = schema.ToString();
 
-  public class ControlFlowItemCollection : List<ControlFlowItem>
-  {
+            // NOTE: This fails because the enum is serialized as an integer and not a string.
+            // NOTE: There should exist a way to serialize the enum as lowercase strings.
+            Assert.AreEqual(@"{
+  ""type"": ""object"",
+  ""properties"": {
+    ""y"": {
+      ""required"": true,
+      ""type"": ""string"",
+      ""enum"": [
+        ""no"",
+        ""asc"",
+        ""desc""
+      ]
+    }
   }
+}", json);
+        }
+    }
 
-  public class Task : ControlFlowItemBase
-  {
-    public DataFlowTaskCollection DataFlowTasks = new DataFlowTaskCollection();
-    public BulkInsertTaskCollection BulkInsertTask = new BulkInsertTaskCollection();
-  }
+    public class NullableInt32TestClass
+    {
+        public int? Value { get; set; }
+    }
 
-  public class TaskCollection : List<Task>
-  {
-  }
+    public class DMDSLBase
+    {
+        public String Comment;
+    }
 
-  public class Container : ControlFlowItemBase
-  {
-    public ControlFlowItemCollection ContainerJobs = new ControlFlowItemCollection();
-  }
+    public class Workspace : DMDSLBase
+    {
+        public ControlFlowItemCollection Jobs = new ControlFlowItemCollection();
+    }
 
-  public class ContainerCollection : List<Container>
-  {
-  }
+    public class ControlFlowItemBase : DMDSLBase
+    {
+        public String Name;
+    }
 
-  public class DataFlowTask_DSL : ControlFlowItemBase
-  {
-  }
+    public class ControlFlowItem : ControlFlowItemBase //A Job
+    {
+        public TaskCollection Tasks = new TaskCollection();
+        public ContainerCollection Containers = new ContainerCollection();
+    }
 
-  public class DataFlowTaskCollection : List<DataFlowTask_DSL>
-  {
-  }
+    public class ControlFlowItemCollection : List<ControlFlowItem>
+    {
+    }
 
-  public class SequenceContainer_DSL : Container
-  {
-  }
+    public class Task : ControlFlowItemBase
+    {
+        public DataFlowTaskCollection DataFlowTasks = new DataFlowTaskCollection();
+        public BulkInsertTaskCollection BulkInsertTask = new BulkInsertTaskCollection();
+    }
 
-  public class BulkInsertTaskCollection : List<BulkInsertTask_DSL>
-  {
-  }
+    public class TaskCollection : List<Task>
+    {
+    }
 
-  public class BulkInsertTask_DSL
-  {
-  }
+    public class Container : ControlFlowItemBase
+    {
+        public ControlFlowItemCollection ContainerJobs = new ControlFlowItemCollection();
+    }
+
+    public class ContainerCollection : List<Container>
+    {
+    }
+
+    public class DataFlowTask_DSL : ControlFlowItemBase
+    {
+    }
+
+    public class DataFlowTaskCollection : List<DataFlowTask_DSL>
+    {
+    }
+
+    public class SequenceContainer_DSL : Container
+    {
+    }
+
+    public class BulkInsertTaskCollection : List<BulkInsertTask_DSL>
+    {
+    }
+
+    public class BulkInsertTask_DSL
+    {
+    }
 }
