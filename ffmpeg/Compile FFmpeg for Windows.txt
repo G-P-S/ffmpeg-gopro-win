@@ -17,7 +17,7 @@
 	3. FFmpeg
 		a. Run msys.bat
 		b. Type 'cd c:/contribwin/ffmpeg/ffmpeg-1.2.3'
-		c. Type 'configure --disable-static --disable-network --disable-debug --enable-shared'
+		c. Type 'configure --disable-static --disable-network --disable-debug --enable-shared --enable-avresample'
 			i. LGPL 2.1 license dlls are built with these options
 			ii. --disable-static do not build static libraries
 			iii. --disable-network avoids dependency on winsocket
@@ -48,5 +48,6 @@
 					a) --extra-ldflags="-L/usr/local/lib"
 				3) --enable gpl
 				4) --enable-libx264
+				5) --enable-encoder="aac"
 
 			
