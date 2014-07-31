@@ -1,0 +1,1 @@
+config:x86:x86_64:generic:mingw32:gcc 4.8.3 (GCC):--disable-static --disable-network --disable-debug --enable-shared --enable-gpl --enable-libx264 --extra-cflags='-IC%3a/MinGW/msys/1.0/home/rlustig/x264-snapshot-20140520-2245' --extra-ldflags=-L/usr/local/lib
