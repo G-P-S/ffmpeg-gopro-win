@@ -32,6 +32,14 @@
 		f. To rebuild 
 			i. type 'make clean' to delete object files 
 			ii. type 'make' to rebuild
+		g. To build 64-bit libraries:
+			i. Download pre-built MinGW-w64 from http://www.drangon.org/mingw/
+			ii. Extract within the MinGW directory (which contains libexec, mingw32, msys, share, var, etc. directories)
+				1) This will extract a mingw64 directory along side the mingw32 directory
+			iii. Run msys.bat
+			iv.  Change the path to include the mingw64 directory:
+				1) export PATH=.:/usr/local/bin:/mingw/mingw64/bin:/bin:$PATH
+			v. Follow steps b-d above as this will now build 64-bit libraries.
 	4. 3rd Party libraries (optional) Most require royalties or special rules. Not LGPL 2.1 compliant.
 		a. x264
 			i. Enable H.264 encoding via x264. Requires GPL license.
@@ -49,5 +57,15 @@
 				3) --enable gpl
 				4) --enable-libx264
 				5) --enable-encoder="aac"
+		b. To build 64-bit library:
+			i. Download pre-built MinGW-w64 from http://www.drangon.org/mingw/
+			ii. Extract within the MinGW directory (which contains libexec, mingw32, msys, share, var, etc. directories)
+				1) This will extract a mingw64 directory along side the mingw32 directory
+			iii. Run msys.bat
+			iv.  Change the path to include the mingw64 directory:
+				1) export PATH=.:/usr/local/bin:/mingw/mingw64/bin:/bin:$PATH
+			v. Add the following configure option to the command line:
+				1) --host=x86_64-w64-mingw32
+				
 
 			
