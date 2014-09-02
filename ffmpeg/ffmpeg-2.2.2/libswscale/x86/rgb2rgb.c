@@ -76,16 +76,27 @@ DECLARE_ASM_CONST(8, uint64_t, mul15_mid)    = 0x4200420042004200ULL;
 DECLARE_ASM_CONST(8, uint64_t, mul15_hi)     = 0x0210021002100210ULL;
 DECLARE_ASM_CONST(8, uint64_t, mul16_mid)    = 0x2080208020802080ULL;
 
-#define BY ((int)( 0.098*(1<<RGB2YUV_SHIFT)+0.5))
-#define BV ((int)(-0.071*(1<<RGB2YUV_SHIFT)+0.5))
-#define BU ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
-#define GY ((int)( 0.504*(1<<RGB2YUV_SHIFT)+0.5))
-#define GV ((int)(-0.368*(1<<RGB2YUV_SHIFT)+0.5))
-#define GU ((int)(-0.291*(1<<RGB2YUV_SHIFT)+0.5))
-#define RY ((int)( 0.257*(1<<RGB2YUV_SHIFT)+0.5))
-#define RV ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
-#define RU ((int)(-0.148*(1<<RGB2YUV_SHIFT)+0.5))
+#define BY601 ((int)( 0.098*(1<<RGB2YUV_SHIFT)+0.5))
+#define BV601 ((int)(-0.071*(1<<RGB2YUV_SHIFT)+0.5))
+#define BU601 ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define GY601 ((int)( 0.504*(1<<RGB2YUV_SHIFT)+0.5))
+#define GV601 ((int)(-0.368*(1<<RGB2YUV_SHIFT)+0.5))
+#define GU601 ((int)(-0.291*(1<<RGB2YUV_SHIFT)+0.5))
+#define RY601 ((int)( 0.257*(1<<RGB2YUV_SHIFT)+0.5))
+#define RV601 ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define RU601 ((int)(-0.148*(1<<RGB2YUV_SHIFT)+0.5))
 
+// Computer Systems RGB to 709 YCbCr
+#define BY ((int)( 0.062*(1<<RGB2YUV_SHIFT)+0.5))
+#define BV ((int)(-0.040*(1<<RGB2YUV_SHIFT)+0.5))
+#define BU ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define GY ((int)( 0.614*(1<<RGB2YUV_SHIFT)+0.5))
+#define GV ((int)(-0.399*(1<<RGB2YUV_SHIFT)+0.5))
+#define GU ((int)(-0.338*(1<<RGB2YUV_SHIFT)+0.5))
+#define RY ((int)( 0.183*(1<<RGB2YUV_SHIFT)+0.5))
+#define RV ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define RU ((int)(-0.101*(1<<RGB2YUV_SHIFT)+0.5))
+                             
 // Note: We have C, MMX, MMXEXT, 3DNOW versions, there is no 3DNOW + MMXEXT one.
 
 #define COMPILE_TEMPLATE_MMXEXT 0

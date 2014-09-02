@@ -923,15 +923,27 @@ static void fill_rgb2yuv_table(SwsContext *c, const int table[4], int dstRange)
     c->input_rgb2yuv_table[BV_IDX] =  ROUNDED_DIV((1 << RGB2YUV_SHIFT)*W        , Cv);
 
     if(/*!dstRange && */!memcmp(table, ff_yuv2rgb_coeffs[SWS_CS_DEFAULT], sizeof(ff_yuv2rgb_coeffs[SWS_CS_DEFAULT]))) {
-        c->input_rgb2yuv_table[BY_IDX] =  ((int)(0.114 * 219 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[BV_IDX] = (-(int)(0.081 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[BU_IDX] =  ((int)(0.500 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[GY_IDX] =  ((int)(0.587 * 219 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[GV_IDX] = (-(int)(0.419 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[GU_IDX] = (-(int)(0.331 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[RY_IDX] =  ((int)(0.299 * 219 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[RV_IDX] =  ((int)(0.500 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
-        c->input_rgb2yuv_table[RU_IDX] = (-(int)(0.169 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5));
+	    #if 0  // Computer Systems RGB to 601 YCbCr
+        c->input_rgb2yuv_table[BY_IDX] =  ((int)(0.098 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[BV_IDX] = (-(int)(0.071 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[BU_IDX] =  ((int)(0.439 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[GY_IDX] =  ((int)(0.504 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[GV_IDX] = (-(int)(0.368 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[GU_IDX] = (-(int)(0.291 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[RY_IDX] =  ((int)(0.257 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[RV_IDX] =  ((int)(0.439 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[RU_IDX] = (-(int)(0.148 * (1 << RGB2YUV_SHIFT) + 0.5));
+        #else  // Computer Systems RGB to 709 YCbCr
+        c->input_rgb2yuv_table[BY_IDX] =  ((int)(0.062 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[BV_IDX] = (-(int)(0.040 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[BU_IDX] =  ((int)(0.439 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[GY_IDX] =  ((int)(0.614 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[GV_IDX] = (-(int)(0.399 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[GU_IDX] = (-(int)(0.338 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[RY_IDX] =  ((int)(0.183 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[RV_IDX] =  ((int)(0.439 * (1 << RGB2YUV_SHIFT) + 0.5));
+        c->input_rgb2yuv_table[RU_IDX] = (-(int)(0.101 * (1 << RGB2YUV_SHIFT) + 0.5));
+        #endif                                        
     }
     for(i=0; i<FF_ARRAY_ELEMS(map); i++)
         AV_WL16(p + 16*4 + 2*i, map[i] >= 0 ? c->input_rgb2yuv_table[map[i]] : 0);

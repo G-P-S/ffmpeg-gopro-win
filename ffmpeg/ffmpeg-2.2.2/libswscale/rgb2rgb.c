@@ -109,15 +109,26 @@ void (*yuyvtoyuv422)(uint8_t *ydst, uint8_t *udst, uint8_t *vdst,
                      const uint8_t *src, int width, int height,
                      int lumStride, int chromStride, int srcStride);
 
-#define BY ((int)( 0.098 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define BV ((int)(-0.071 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define BU ((int)( 0.439 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define GY ((int)( 0.504 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define GV ((int)(-0.368 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define GU ((int)(-0.291 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define RY ((int)( 0.257 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define RV ((int)( 0.439 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define RU ((int)(-0.148 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define BY601 ((int)( 0.098*(1<<RGB2YUV_SHIFT)+0.5))
+#define BV601 ((int)(-0.071*(1<<RGB2YUV_SHIFT)+0.5))
+#define BU601 ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define GY601 ((int)( 0.504*(1<<RGB2YUV_SHIFT)+0.5))
+#define GV601 ((int)(-0.368*(1<<RGB2YUV_SHIFT)+0.5))
+#define GU601 ((int)(-0.291*(1<<RGB2YUV_SHIFT)+0.5))
+#define RY601 ((int)( 0.257*(1<<RGB2YUV_SHIFT)+0.5))
+#define RV601 ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define RU601 ((int)(-0.148*(1<<RGB2YUV_SHIFT)+0.5))
+
+// Computer Systems RGB to 709 YCbCr
+#define BY ((int)( 0.062*(1<<RGB2YUV_SHIFT)+0.5))
+#define BV ((int)(-0.040*(1<<RGB2YUV_SHIFT)+0.5))
+#define BU ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define GY ((int)( 0.614*(1<<RGB2YUV_SHIFT)+0.5))
+#define GV ((int)(-0.399*(1<<RGB2YUV_SHIFT)+0.5))
+#define GU ((int)(-0.338*(1<<RGB2YUV_SHIFT)+0.5))
+#define RY ((int)( 0.183*(1<<RGB2YUV_SHIFT)+0.5))
+#define RV ((int)( 0.439*(1<<RGB2YUV_SHIFT)+0.5))
+#define RU ((int)(-0.101*(1<<RGB2YUV_SHIFT)+0.5))
 
 //plain C versions
 #include "rgb2rgb_template.c"

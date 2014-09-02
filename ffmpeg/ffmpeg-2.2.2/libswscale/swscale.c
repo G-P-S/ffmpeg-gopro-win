@@ -979,17 +979,29 @@ int attribute_align_arg sws_scale(struct SwsContext *c,
                 g = ((i >> 1) & 3) * 85;
                 r = ( i       & 1) * 255;
             }
-#define RGB2YUV_SHIFT 15
-#define BY ( (int) (0.114 * 219 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define BV (-(int) (0.081 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define BU ( (int) (0.500 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define GY ( (int) (0.587 * 219 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define GV (-(int) (0.419 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define GU (-(int) (0.331 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define RY ( (int) (0.299 * 219 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define RV ( (int) (0.500 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-#define RU (-(int) (0.169 * 224 / 255 * (1 << RGB2YUV_SHIFT) + 0.5))
-
+#define RGB2YUV_SHIFT 15      
+// old 601 calcuations were wrong
+#define BY601 ( (int) (0.098 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define BV601 (-(int) (0.071 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define BU601 ( (int) (0.439 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define GY601 ( (int) (0.504 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define GV601 (-(int) (0.368 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define GU601 (-(int) (0.291 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define RY601 ( (int) (0.257 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define RV601 ( (int) (0.439 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define RU601 (-(int) (0.148 * (1 << RGB2YUV_SHIFT) + 0.5))
+                            
+// Computer Systems RGB to 709 YCbCr
+#define BY ( (int) (0.062 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define BV (-(int) (0.040 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define BU ( (int) (0.439 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define GY ( (int) (0.614 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define GV (-(int) (0.399 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define GU (-(int) (0.338 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define RY ( (int) (0.183 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define RV ( (int) (0.439 * (1 << RGB2YUV_SHIFT) + 0.5))
+#define RU (-(int) (0.101 * (1 << RGB2YUV_SHIFT) + 0.5))
+                              
             y = av_clip_uint8((RY * r + GY * g + BY * b + ( 33 << (RGB2YUV_SHIFT - 1))) >> RGB2YUV_SHIFT);
             u = av_clip_uint8((RU * r + GU * g + BU * b + (257 << (RGB2YUV_SHIFT - 1))) >> RGB2YUV_SHIFT);
             v = av_clip_uint8((RV * r + GV * g + BV * b + (257 << (RGB2YUV_SHIFT - 1))) >> RGB2YUV_SHIFT);
