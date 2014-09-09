@@ -51,10 +51,11 @@
 			vii. Copy 'libx264.a' to c:\MinGW\msys\1.0\local\lib' <- /usr/local/lib from shell
 			viii. Configure options for FFmpeg
 				1) Include files path for library
-					a) --extra-cflags="-IC:/contribwin/ffmpeg/x264-snapshot-20131008-2245" 
+					a) --extra-cflags="-IC:/contribwin/ffmpeg/x264-snapshot-20140520-2245" 
 				2) Library files path (.a files (unix static library))
 					a) --extra-ldflags="-L/usr/local/lib"
-				3) --enable gpl
+				3) --enable gpl (Remove for licensed versions)
+					a) Need to modify configure file and comment out #die_license_disabled gpl libx264 (# is comment)					
 				4) --enable-libx264
 				5) --enable-encoder="aac"
 		b. To build 64-bit library:

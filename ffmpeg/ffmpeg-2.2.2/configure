@@ -4035,7 +4035,7 @@ die_license_disabled gpl frei0r
 die_license_disabled gpl libcdio
 die_license_disabled gpl libutvideo
 die_license_disabled gpl libvidstab
-die_license_disabled gpl libx264
+#die_license_disabled gpl libx264
 die_license_disabled gpl libx265
 die_license_disabled gpl libxavs
 die_license_disabled gpl libxvid

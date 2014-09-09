@@ -10,5 +10,5 @@ Requires:
 Requires.private: libavfilter = 4.2.100, libavformat = 55.33.100
 Conflicts:
 Libs: -L${libdir}  -lavdevice 
-Libs.private: -lavicap32 -liconv -lm -lpsapi -ladvapi32 -lshell32
+Libs.private: -lavicap32 -liconv -lx264 -lm -lpsapi -ladvapi32 -lshell32
 Cflags: -I${includedir}

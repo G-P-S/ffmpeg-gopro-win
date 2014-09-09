@@ -10,5 +10,5 @@ Requires:
 Requires.private: libavutil = 52.66.100
 Conflicts:
 Libs: -L${libdir}  -lavcodec 
-Libs.private: -lavicap32 -liconv -lm -lpsapi -ladvapi32 -lshell32
+Libs.private: -lavicap32 -liconv -lx264 -lm -lpsapi -ladvapi32 -lshell32
 Cflags: -I${includedir}
