@@ -23,6 +23,8 @@
 			iii. --disable-network avoids dependency on winsocket
 			iv. --disable-debug for lean libraries
 			v. --enable-shared allows the creation of the dlls
+		d. Type 'configure --disable-static --disable-network --disable-debug --enable-shared --enable-avresample --extra-cflags="-IC:/contribwin/ffmpeg/x264-snapshot-20140520-2245" --extra-ldflags="-L/usr/local/lib" --enable-libx264 --enable-encoder="aac"'
+			i. Above configure is for x.264 with all gpl licensing disabled
 		d. Type 'make' to start the build
 			i. Takes approximately 10-15 minutes to build all dlls
 			ii. Built Dlls are located in there respective folders
@@ -46,7 +48,8 @@
 			ii. Download x264from http://videolan.org/developers/x264.html
 			iii. Run msys.bat
 			iv. Type 'cd c:/contribwin/ffmpeg/x264-snapshot-20130108-2245'
-			v. Type 'configure'
+			v. Type 'configure' --disable-gpl
+				1) --disable-gpl (Needed to remove gpl for licensed versions)
 			vi. Type 'make'
 			vii. Copy 'libx264.a' to c:\MinGW\msys\1.0\local\lib' <- /usr/local/lib from shell
 			viii. Configure options for FFmpeg
