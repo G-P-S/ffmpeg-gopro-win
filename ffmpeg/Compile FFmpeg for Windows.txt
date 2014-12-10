@@ -42,6 +42,8 @@
 			iv.  Change the path to include the mingw64 directory:
 				1) export PATH=.:/usr/local/bin:/mingw/mingw64/bin:/bin:$PATH
 			v. Follow steps b-d above as this will now build 64-bit libraries.
+		g. inttypes.h:
+			i. a has been moved to ffmpeg-2.2.2/inttypes/inttypes.h in case it is needed
 	4. 3rd Party libraries (optional) Most require royalties or special rules. Not LGPL 2.1 compliant.
 		a. x264
 			i. Enable H.264 encoding via x264. Requires GPL license.
