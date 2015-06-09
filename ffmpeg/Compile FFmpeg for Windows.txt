@@ -74,4 +74,6 @@
 				1) --host=x86_64-w64-mingw32
 				
 
-			
+	5) Finally, gather up all the FFmpeg libraries using the approppriate batch file
+			i. for 32bit: gather32bitLibs.bat
+			ii. for 64bit: gather64bitLibs.bat
