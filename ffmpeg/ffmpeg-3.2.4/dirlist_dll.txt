@@ -1,0 +1,16 @@
+./libavcodec/avcodec-57.dll
+./libavcodec/avcodec.dll
+./libavdevice/avdevice-57.dll
+./libavdevice/avdevice.dll
+./libavfilter/avfilter-6.dll
+./libavfilter/avfilter.dll
+./libavformat/avformat-57.dll
+./libavformat/avformat.dll
+./libavresample/avresample-3.dll
+./libavresample/avresample.dll
+./libavutil/avutil-55.dll
+./libavutil/avutil.dll
+./libswresample/swresample-2.dll
+./libswresample/swresample.dll
+./libswscale/swscale-4.dll
+./libswscale/swscale.dll

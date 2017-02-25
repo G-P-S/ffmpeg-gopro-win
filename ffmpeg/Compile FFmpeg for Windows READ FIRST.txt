@@ -1,0 +1,42 @@
+=== BUILDING FFMPEG ON WINDOWS ===
+Revised 2.24.2017
+
+This version supersedes the earlier version: Compile FFmpeg for Windows.txt 
+
+Note:
+1. FFMPEG is constantly evolving. Usually, the latest major release is what we would need for integration.
+2. It may be possible to build FFMPEG using the latest version of Visual Studio (currently, VS2015) but FFMPEG build documentation is a few VS versions behind (VS2012 at this time). This document describes build process using MinGW tools.
+3. See FFmpeg Compilation Guide, https://trac.ffmpeg.org/wiki/CompilationGuide, for hints and changes in build process.
+4. This document does not cover building x265 encoder which is currently not needed.
+
+1. Install MSYS2
+	MSYS2 is a much improved development environment based on MingW-w64 and Cygwin.
+
+	a. Download the latest Windows installer from http://www.msys2.org/, for a 64-bit Windows system you'll need installer with the name staring with "msys2-x86_64...".
+	b. Launch MSYS2 terminal window: search for "MSYS2 MinGW 64-bit"
+	c. Configure the package manager:
+		-- on the MinGW command line enter (enter capital "Y" when prompted to confirm):
+
+				pacman -S make
+				pacman -S diffutils
+				pacman -S yasm
+				pacman -S tar
+				pacman -S mingw-w64-x86_64-gcc
+				pacman -S mingw-w64-i686-gcc		
+
+2. Download FFMPEG source
+	a. Download the latest stable release from https://ffmpeg.org/download.html#releases, choose gzip tarball format.
+	b. Copy gzip file to a suitable location, say, C:\git-repos\qda\2rdparty\ffmpeg-gopro-win\ffmpeg if you are planning to add the build to the desktop repo.
+	c. From the bash prompt cd to /c/git-repos/qda_new/3rdparty/ffmpeg-gopro-win/ffmpeg and say tar -xvf 
+	d. Verify that ffmpeg source tree has been extracted to C:\git-repos\qda_new\3rdparty\ffmpeg-gopro-win\ffmpeg\ffmpeg-3.2.4 (assuming the current FFMPEG version is 3.2.4).
+						
+3. Configure and run FFMPEG build
+	a. From the bash prompt cd to ffmpeg-3.2.4.
+	b. Enter: ./configure --disable-static --disable-network --disable-debug --enable-shared --enable-avresample
+	   Note: this step should complete without any problems but if configure returns an error, you may need to inspect config.log (in the ffmpeg-3.2.4 directory)
+	c. Enter make.
+	d. Wait...
+
+4. Collect the DLL's
+	Look for the newly built DLL's and corresponding static libraries, e.g. by running a search for *.dll and *.lib files in ffmpeg-3.2.4 directory and copy them to the ffmpeg-3.2.4\bin directory. 
+	
